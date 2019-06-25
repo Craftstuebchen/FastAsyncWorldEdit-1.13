@@ -96,7 +96,7 @@ subprojects {
         maven {url "http://ci.emc.gs/nexus/content/groups/aikar/" }
     }
 
-    if (!(name.equals('worldedit-forge') || name.equals('worldedit-sponge'))) {
+    if (!(name == 'worldedit-forge' || name == 'worldedit-sponge')) {
         task sourcesJar(type: Jar, dependsOn: classes) {
             classifier = 'sources'
             from sourceSets.main.allSource
@@ -111,11 +111,11 @@ subprojects {
     shadowJar {
         classifier 'dist'
         dependencies {
-            include(dependency('com.sk89q:jchronic:0.2.4a'))
-            include(dependency('com.thoughtworks.paranamer:paranamer:2.6'))
-            include(dependency('com.sk89q.lib:jlibnoise:1.0.0'))
-            include(dependency('com.github.luben:zstd-jni:1.1.1'))
-            include(dependency('co.aikar:fastutil-lite:1.0'))
+            include('com.sk89q:jchronic:0.2.4a')
+            include('com.thoughtworks.paranamer:paranamer:2.6')
+            include('com.sk89q.lib:jlibnoise:1.0.0')
+            include('com.github.luben:zstd-jni:1.1.1')
+            include('co.aikar:fastutil-lite:1.0')
         }
         exclude 'GradleStart**'
         exclude '.cache'
@@ -128,6 +128,10 @@ subprojects {
     //    include '**/*.java'
     //}
 }
+wrapper {
+    gradleVersion = '5.4.1'
+}
+
 task aggregatedJavadocs(type: Javadoc, description: 'Generate javadocs from all child projects as if it was a single project', group: 'Documentation') {
     destinationDir = file("./docs/javadoc")
     title = "$project.name $version API"
